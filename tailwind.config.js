@@ -6,6 +6,13 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("daisyui"),
+  ],
+  daisyui: {
+    styled: true,
+    themes: ['light', 'dark'],
+    darkTheme: 'dark',
+  },
 }
 
