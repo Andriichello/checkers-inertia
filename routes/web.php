@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Web\Game\GameController;
+use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\LogoutController;
+use App\Http\Controllers\Web\RegisterController;
 use App\Http\Middleware\RedirectIfUnauthenticated;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,8 @@ Route::post('/logout', [LogoutController::class, 'logout'])
 Route::group(['middleware' => ['auth.session', RedirectIfUnauthenticated::class]], function () {
     Route::get('/', [HomeController::class, 'view'])
         ->name('home.view');
+
+    Route::get('/game/{id?}', [GameController::class, 'view'])
+        ->name('game.view');
 });
 
