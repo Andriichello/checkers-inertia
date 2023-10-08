@@ -17,7 +17,11 @@
           <li><span class="text-lg font-semibold">Home</span></li>
           <li><span class="text-lg font-semibold">Games</span></li>
 
-          <li class="grow"></li>
+          <li class="grow opacity-0"></li>
+
+          <li @click="onLogout">
+            <span class="text-lg font-semibold">Logout</span>
+          </li>
 
           <li class="mt-4 justify-self-end" v-if="user?.name">
             <span class="text-lg font-semibold text-end">
@@ -33,13 +37,18 @@
 
 <script setup>
 import {computed} from "vue";
-import {usePage} from "@inertiajs/vue3";
+import {usePage, useForm} from "@inertiajs/vue3";
 import Navbar from "../Components/Navbar.vue";
 
 const user = computed(() => usePage().props.user);
+const form = useForm('logout', {});
 
 function onOpenDrawer() {
   const drawer = document.getElementById('base-drawer');
   drawer.checked = !drawer.checked;
+}
+
+function onLogout() {
+  form.post('/logout');
 }
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Middleware\RedirectIfUnauthenticated;
@@ -26,6 +27,10 @@ Route::get('/register', [RegisterController::class, 'view'])
     ->name('register.view');
 Route::post('/register', [RegisterController::class, 'register'])
     ->name('register.post');
+
+Route::post('/logout', [LogoutController::class, 'logout'])
+    ->middleware('auth.session')
+    ->name('logout.post');
 
 Route::group(['middleware' => ['auth.session', RedirectIfUnauthenticated::class]], function () {
     Route::get('/', [HomeController::class, 'view'])
