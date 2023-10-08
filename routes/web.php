@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Middleware\RedirectIfUnauthenticated;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +17,18 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'user' => [
-            'name' => 'Test',
-            'email' => 'test@email.com',
-        ]
-    ]);
+Route::get('/login', [LoginController::class, 'view'])
+    ->name('login.view');
+Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.post');
+
+Route::get('/register', [RegisterController::class, 'view'])
+    ->name('register.view');
+Route::post('/register', [RegisterController::class, 'register'])
+    ->name('register.post');
+
+Route::group(['middleware' => ['auth.session', RedirectIfUnauthenticated::class]], function () {
+    Route::get('/', [HomeController::class, 'view'])
+        ->name('home.view');
 });
+
