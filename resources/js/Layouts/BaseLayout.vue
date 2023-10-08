@@ -14,8 +14,8 @@
       <div class="drawer-side">
         <label for="base-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 min-h-full bg-base-100 text-base-content">
-          <li><span class="text-lg font-semibold">Home</span></li>
-          <li><span class="text-lg font-semibold">Games</span></li>
+          <li><Link href="/game" class="text-lg font-semibold">New</Link></li>
+          <li><Link href="/" class="text-lg font-semibold">Home</Link></li>
 
           <li class="grow opacity-0"></li>
 
@@ -37,7 +37,7 @@
 
 <script setup>
 import {computed} from "vue";
-import {usePage, useForm} from "@inertiajs/vue3";
+import {Link, usePage, useForm} from "@inertiajs/vue3";
 import Navbar from "../Components/Navbar.vue";
 
 const user = computed(() => usePage().props.user);
